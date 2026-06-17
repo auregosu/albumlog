@@ -52,7 +52,7 @@ class _SavedTabState extends State<SavedTab> {
                   color: scheme.onSurfaceVariant,
                 ),
                 Text(
-                  "${albums.length} Saved Records",
+                  "${albums.length}",
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: scheme.onSurfaceVariant,
                   ),
