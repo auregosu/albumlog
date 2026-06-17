@@ -19,21 +19,21 @@ class _SearchTabState extends State<SearchTab> {
   String? _error;
 
   Future<void> _runSearch(String query) async {
-      if (query.trim().isEmpty) return;
-      setState(() {
-        _loading = true;
-        _error = null;
-      });
+    if (query.trim().isEmpty) return;
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
 
-      try {
-        final results = await searchAlbums(query);
-        setState(() => _albums = results);
-      } catch (e) {
-        setState(() => _error = 'ERROR: $e');
-      } finally {
-        setState(() => _loading = false);
-      }
+    try {
+      final results = await searchAlbums(query);
+      setState(() => _albums = results);
+    } catch (e) {
+      setState(() => _error = 'ERROR: $e');
+    } finally {
+      setState(() => _loading = false);
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +43,17 @@ class _SearchTabState extends State<SearchTab> {
         children: [
           AlbumSearchBar(controller: _textController, onSearch: _runSearch),
           if (_loading)
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: CircularProgressIndicator(),
-          ),
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: CircularProgressIndicator(),
+            ),
           if (_error != null)
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(_error!, style: const TextStyle(color: Colors.red)),
+              child: Text(
+                _error!,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
             ),
           Expanded(child: AlbumListView(albumList: _albums)),
         ],

@@ -10,6 +10,9 @@ class AlbumListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cover = albumCoverImage(album);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -27,7 +30,17 @@ class AlbumListTile extends StatelessWidget {
               width: 100,
               height: 100,
               child: cover == null
-                  ? const Icon(Icons.album, size: 100)
+                  ? Container(
+                      decoration: BoxDecoration(
+                        color: colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.album,
+                        size: 48,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    )
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image(
@@ -48,13 +61,15 @@ class AlbumListTile extends StatelessWidget {
                     album.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: textTheme.titleMedium,
                   ),
                   Text(
                     album.artist,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),

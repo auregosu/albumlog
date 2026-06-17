@@ -16,10 +16,53 @@ class _SavedTabState extends State<SavedTab> {
       listenable: savedAlbums,
       builder: (context, _) {
         final albums = savedAlbums.albums;
+        final scheme = Theme.of(context).colorScheme;
+
         if (albums.isEmpty) {
-          return const Center(child: Text('No saved albums yet'));
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.bookmark_border,
+                  size: 64,
+                  color: scheme.onSurfaceVariant,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'No saved albums yet',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+          );
         }
-        return AlbumListView(albumList: albums);
+
+        return Column(
+          children: [
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.bookmark_border,
+                  size: 40,
+                  color: scheme.onSurfaceVariant,
+                ),
+                Text(
+                  "${albums.length} Saved Records",
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Expanded(child: AlbumListView(albumList: albums)),
+          ],
+        );
       },
     );
   }

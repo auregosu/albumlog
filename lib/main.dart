@@ -16,7 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Applog',
-      theme: ThemeData(colorScheme: ColorScheme.dark()),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFE9A23B),
+          brightness: Brightness.dark,
+        ),
+      ),
       home: const MainScreen(startingIndex: 0),
     );
   }
