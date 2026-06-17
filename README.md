@@ -6,4 +6,4 @@ Simple app that uses the Discogs API to browse records and save them as favorite
 ![Figma prototype](figma.png)
 
 ## Demo
-[![Demo video](demo_thumbnail.png)](demo.webm)
+[![Demo video](demo_thumbnail.png)](demo.webm.mp4)
