@@ -37,6 +37,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cover = albumCoverImage(_album);
     return Scaffold(
       appBar: AppBar(title: Text('Album')),
       floatingActionButton: ListenableBuilder(
@@ -52,10 +53,13 @@ class _AlbumScreenState extends State<AlbumScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          if (_album.coverUrl != null)
-            Image.network(
-              _album.coverUrl!,
-              errorBuilder: (context, error, stack) => const SizedBox(),
+          if (cover != null)
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 500),
+              child: Image(
+                image: cover,
+                errorBuilder: (context, error, stack) => const SizedBox(),
+              ),
             ),
           const SizedBox(height: 16),
           Text(_album.name, style: Theme.of(context).textTheme.headlineLarge),
@@ -72,7 +76,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
           if (_album.tracklist != null) ...[
             Text('Tracklist', style: Theme.of(context).textTheme.titleMedium),
             for (int i = 0; i < _album.tracklist!.length; i++)
-              Text('${i+1}. ${_album.tracklist![i]}'),
+              Text('${i + 1}. ${_album.tracklist![i]}'),
           ],
         ],
       ),

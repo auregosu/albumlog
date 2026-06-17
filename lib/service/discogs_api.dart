@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:albumlog/model/album.dart';
 
@@ -52,4 +53,23 @@ Future<Album> fetchAlbumDetails(Album album) async {
   final description = body['notes'] as String?;
 
   return album.copyWithDetails(description: description, tracklist: tracklist);
+}
+
+// Download an album cover and return its local file name
+Future<String?> downloadCover(
+  String albumId,
+  String coverUrl,
+  String coverDir,
+) async {
+  if (albumId.isEmpty || coverUrl.isEmpty || coverDir.isEmpty) return null;
+  try {
+    final response = await http.get(Uri.parse(coverUrl), headers: _headers);
+    if (response.statusCode != 200) return null;
+
+    final fileName = 'cover_$albumId.jpg';
+    await File('$coverDir/$fileName').writeAsBytes(response.bodyBytes);
+    return fileName;
+  } catch (_) {
+    return null;
+  }
 }
