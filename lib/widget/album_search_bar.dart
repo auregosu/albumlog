@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AlbumSearchBar extends StatelessWidget {
-  const AlbumSearchBar({super.key, required this.controller});
+  const AlbumSearchBar({super.key, required this.controller, required this.onSearch});
 
   final TextEditingController controller;
+  final void Function(String) onSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +17,7 @@ class AlbumSearchBar extends StatelessWidget {
           labelText: 'Search album',
           icon: Icon(Icons.search),
         ),
-        onSubmitted: (value) {
-          // Search album logic after entering search term
-          print("Searching for: $value");
-        },
+        onSubmitted: onSearch,
       ),
     );
   }

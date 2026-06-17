@@ -36,10 +36,14 @@ class _MainScreenState extends State<MainScreen> {
           NavigationDestination(icon: Icon(Icons.bookmark), label: 'Saved'),
         ],
       ),
-      body: <Widget>[
-        SearchTab(),
-        SavedTab(),
-      ][_selectedIndex],
+      body:
+        IndexedStack(
+          index: _selectedIndex,
+          children: const <Widget>[
+            SearchTab(),
+            SavedTab(),
+          ],
+        ),
     );
   }
 }
